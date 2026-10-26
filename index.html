@@ -97,7 +97,7 @@
             </div>
             <nav class="flex-1 overflow-y-auto py-4 relative z-30">
                 <ul class="space-y-1 px-3">
-                    <li><a href="#" data-target="view-summary" class="nav-item flex items-center px-3 py-2.5 bg-primary/15 text-primary rounded-lg font-medium transition-colors"><i class="fas fa-chart-pie w-5 mr-3 text-center"></i> Executive Summary</a></li>
+                    <li><a href="#" data-target="view-summary" class="nav-item flex items-center px-3 py-2.5 bg-primary/15 text-primary rounded-lg font-medium transition-colors"><i class="fas fa-chart-pie w-5 mr-3 text-center"></i> utive Summary</a></li>
                     <li><a href="#" data-target="view-users" class="nav-item flex items-center px-3 py-2.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg font-medium transition-colors"><i class="fas fa-users w-5 mr-3 text-center"></i> Analysis Subscriber</a></li>
                     <li><a href="#" data-target="view-map" class="nav-item flex items-center px-3 py-2.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg font-medium transition-colors"><i class="fas fa-map-marked-alt w-5 mr-3 text-center"></i> Regional Map (Jatim)</a></li>
                     <li><a href="#" data-target="view-epg" class="nav-item flex items-center px-3 py-2.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg font-medium transition-colors"><i class="fas fa-tv w-5 mr-3 text-center"></i> EPG Status & Capacity</a></li>
@@ -135,7 +135,7 @@
             <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 relative scroll-smooth" id="print-area">
                 <div class="mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 relative z-30">
                     <div>
-                        <h1 id="page-title" class="text-2xl font-bold text-gray-800 dark:text-white">Executive Summary</h1>
+                        <h1 id="page-title" class="text-2xl font-bold text-gray-800 dark:text-white">utive Summary</h1>
                         <p id="timeRangeIndicator" class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Showing data for: Live Update from Sheets</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-3">
@@ -159,7 +159,7 @@
                     </div>
                 </div>
 
-                <!-- VIEW 1: EXECUTIVE SUMMARY -->
+                <!-- VIEW 1: UTIVE SUMMARY -->
                 <div id="view-summary" class="view-section block space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 border-l-4 border-l-blue-500 flex flex-col justify-center">
@@ -410,31 +410,31 @@
                 const data = globalFilterData[rangeKey];
                 
                 // Isi Kartu
-                document.getElementById('stat-total-online').innerText = data.exec.totalOnline;
-                document.getElementById('stat-sby-online').innerText = data.exec.sbyOnline;
-                document.getElementById('stat-peak-bw').innerHTML = data.exec.peakBw;
-                document.getElementById('stat-high-storage').innerText = data.exec.highStorage;
+                document.getElementById('stat-total-online').innerText = data..totalOnline;
+                document.getElementById('stat-sby-online').innerText = data..sbyOnline;
+                document.getElementById('stat-peak-bw').innerHTML = data..peakBw;
+                document.getElementById('stat-high-storage').innerText = data..highStorage;
 
                 // Isi List Top 5
-                document.getElementById('list-top-occupancy').innerHTML = data.exec.topOccupancy.map(item => `
+                document.getElementById('list-top-occupancy').innerHTML = data..topOccupancy.map(item => `
                     <div class="flex justify-between items-center"><span class="text-gray-600 dark:text-gray-300">${item.name}</span><span class="font-bold text-gray-900 dark:text-white">${item.val}</span></div>
                 `).join('');
-                document.getElementById('list-top-cpu').innerHTML = data.exec.topCpu.map(item => `
+                document.getElementById('list-top-cpu').innerHTML = data..topCpu.map(item => `
                     <div class="flex justify-between items-center"><span class="text-gray-600 dark:text-gray-300">${item.name}</span><span class="font-bold text-gray-900 dark:text-white">${item.val}</span></div>
                 `).join('');
-                document.getElementById('list-top-memory').innerHTML = data.exec.topMemory.map(item => `
+                document.getElementById('list-top-memory').innerHTML = data..topMemory.map(item => `
                     <div class="flex justify-between items-center"><span class="text-gray-600 dark:text-gray-300">${item.name}</span><span class="font-bold text-red-500">${item.val}</span></div>
                 `).join('');
-                document.getElementById('list-top-epg-subs').innerHTML = data.exec.topEpgSubs.map(item => `
+                document.getElementById('list-top-epg-subs').innerHTML = data..topEpgSubs.map(item => `
                     <li>
                         <div class="flex justify-between text-sm mb-1"><span class="font-medium text-gray-700 dark:text-gray-300">${item.name}</span><span class="font-bold text-blue-600 dark:text-blue-400">${item.val}</span></div>
                         <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5"><div class="bg-blue-500 h-1.5 rounded-full" style="width: ${item.width}"></div></div>
                     </li>
                 `).join('');
-                document.getElementById('list-top-growth').innerHTML = data.exec.topGrowth.map(item => `
+                document.getElementById('list-top-growth').innerHTML = data..topGrowth.map(item => `
                     <li class="flex justify-between items-center text-sm"><span class="font-medium text-gray-700 dark:text-gray-300">${item.name}</span><span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-bold">${item.val}</span></li>
                 `).join('');
-                document.getElementById('list-top-decline').innerHTML = data.exec.topDecline.map(item => `
+                document.getElementById('list-top-decline').innerHTML = data..topDecline.map(item => `
                     <li class="flex justify-between items-center text-sm"><span class="font-medium text-gray-700 dark:text-gray-300">${item.name}</span><span class="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-bold">${item.val}</span></li>
                 `).join('');
 
@@ -508,7 +508,7 @@
             const navItems = document.querySelectorAll('.nav-item');
             const viewSections = document.querySelectorAll('.view-section');
             const pageTitle = document.getElementById('page-title');
-            const titleMap = { 'view-summary': 'Executive Summary', 'view-users': 'Analysis Subscriber', 'view-map': 'East Java Regional Map', 'view-epg': 'EPG Status & Capacity', 'view-cdn': 'CDN Performance' };
+            const titleMap = { 'view-summary': 'utive Summary', 'view-users': 'Analysis Subscriber', 'view-map': 'East Java Regional Map', 'view-epg': 'EPG Status & Capacity', 'view-cdn': 'CDN Performance' };
 
             navItems.forEach(item => {
                 item.addEventListener('click', function(e) {
