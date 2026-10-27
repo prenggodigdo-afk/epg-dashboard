@@ -5,27 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EPG & CDN Network Monitoring Dashboard</title>
     
+    <!-- Google Fonts (Inter) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- html2pdf for PDF Export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- SheetJS for Excel Export -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/xlsx.full.min.js"></script>
 
+    <!-- Tailwind Dark Mode Configuration -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'], },
-                    colors: { primary: '#e1002b', 'tk-dark': '#9b001d', secondary: '#64748b', },
-                    keyframes: {
-                        pulseFast: { '0%, 100%': { transform: 'scale(1)', opacity: '1' }, '50%': { transform: 'scale(1.25)', opacity: '0.8' }, },
-                        slideIn: { '0%': { transform: 'translateX(100%)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } }
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
                     },
-                    animation: { 'pulse-fast': 'pulseFast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite', 'slide-in': 'slideIn 0.3s ease-out forwards', }
+                    colors: {
+                        primary: '#e1002b',
+                        'tk-dark': '#9b001d',
+                        secondary: '#64748b',
+                    },
+                    keyframes: {
+                        pulseFast: {
+                            '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+                            '50%': { transform: 'scale(1.25)', opacity: '0.8' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(100%)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        }
+                    },
+                    animation: {
+                        'pulse-fast': 'pulseFast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-in': 'slideIn 0.3s ease-out forwards',
+                    }
                 }
             }
         }
@@ -48,37 +79,46 @@
                     <line x1="38" y1="65" x2="92" y2="65" stroke="#e1002b" stroke-opacity="0.2" stroke-width="1"/>
                     <line x1="38" y1="80" x2="92" y2="80" stroke="#e1002b" stroke-opacity="0.2" stroke-width="1"/>
                     <line x1="38" y1="95" x2="92" y2="95" stroke="#e1002b" stroke-opacity="0.2" stroke-width="1"/>
+                    
                     <rect x="38" y="115" width="54" height="25" rx="2" fill="#e1002b" fill-opacity="0.15" stroke="#e1002b" stroke-opacity="0.3" stroke-width="1"/>
                     <circle cx="48" cy="127" r="2.5" fill="#22c55e" fill-opacity="0.8"/>
                     <circle cx="56" cy="127" r="2.5" fill="#3b82f6" fill-opacity="0.8"/>
                     <line x1="66" y1="127" x2="86" y2="127" stroke="#e1002b" stroke-opacity="0.3" stroke-width="2"/>
+
                     <rect x="38" y="145" width="54" height="25" rx="2" fill="#e1002b" fill-opacity="0.15" stroke="#e1002b" stroke-opacity="0.3" stroke-width="1"/>
                     <circle cx="48" cy="157" r="2.5" fill="#22c55e" fill-opacity="0.8"/>
                     <circle cx="56" cy="157" r="2.5" fill="#e1002b" fill-opacity="0.8"/>
                     <line x1="66" y1="157" x2="86" y2="157" stroke="#e1002b" stroke-opacity="0.3" stroke-width="2"/>
+
                     <rect x="38" y="175" width="54" height="25" rx="2" fill="#e1002b" fill-opacity="0.15" stroke="#e1002b" stroke-opacity="0.3" stroke-width="1"/>
                     <circle cx="48" cy="187" r="2.5" fill="#eab308" fill-opacity="0.8"/>
                     <circle cx="56" cy="187" r="2.5" fill="#3b82f6" fill-opacity="0.8"/>
                     <line x1="66" y1="187" x2="86" y2="187" stroke="#e1002b" stroke-opacity="0.3" stroke-width="2"/>
+
                     <line x1="38" y1="215" x2="92" y2="215" stroke="#e1002b" stroke-opacity="0.2" stroke-width="1"/>
                     <line x1="38" y1="230" x2="92" y2="230" stroke="#e1002b" stroke-opacity="0.2" stroke-width="1"/>
                     <line x1="38" y1="245" x2="92" y2="245" stroke="#e1002b" stroke-opacity="0.2" stroke-width="1"/>
                     <line x1="38" y1="260" x2="92" y2="260" stroke="#e1002b" stroke-opacity="0.2" stroke-width="1"/>
+
                     <rect x="200" y="40" width="85" height="260" rx="4" fill="#e1002b" fill-opacity="0.05" stroke="#e1002b" stroke-opacity="0.25" stroke-width="2"/>
                     <rect x="210" y="55" width="65" height="30" rx="2" fill="#e1002b" fill-opacity="0.15" stroke="#e1002b" stroke-opacity="0.3" stroke-width="1"/>
                     <circle cx="220" cy="70" r="2" fill="#22c55e" fill-opacity="0.8"/>
                     <circle cx="227" cy="70" r="2" fill="#22c55e" fill-opacity="0.8"/>
                     <circle cx="234" cy="70" r="2" fill="#22c55e" fill-opacity="0.8"/>
                     <line x1="244" y1="70" x2="265" y2="70" stroke="#e1002b" stroke-opacity="0.4" stroke-width="3"/>
+
                     <rect x="210" y="95" width="65" height="20" rx="2" fill="#e1002b" fill-opacity="0.1" stroke="#e1002b" stroke-opacity="0.25" stroke-width="1"/>
                     <rect x="210" y="120" width="65" height="20" rx="2" fill="#e1002b" fill-opacity="0.1" stroke="#e1002b" stroke-opacity="0.25" stroke-width="1"/>
                     <rect x="210" y="145" width="65" height="20" rx="2" fill="#e1002b" fill-opacity="0.1" stroke="#e1002b" stroke-opacity="0.25" stroke-width="1"/>
+                    
                     <rect x="210" y="180" width="65" height="35" rx="2" fill="#e1002b" fill-opacity="0.15" stroke="#e1002b" stroke-opacity="0.3" stroke-width="1"/>
                     <circle cx="220" cy="197" r="2.5" fill="#22c55e" fill-opacity="0.8"/>
                     <circle cx="228" cy="197" r="2.5" fill="#ef4444" fill-opacity="0.8"/>
+
                     <line x1="210" y1="230" x2="275" y2="230" stroke="#e1002b" stroke-opacity="0.2" stroke-width="1"/>
                     <line x1="210" y1="245" x2="275" y2="245" stroke="#e1002b" stroke-opacity="0.2" stroke-width="1"/>
                     <line x1="210" y1="260" x2="275" y2="260" stroke="#e1002b" stroke-opacity="0.2" stroke-width="1"/>
+
                     <path d="M100 100 C 140 30, 160 220, 200 130" fill="none" stroke="#e1002b" stroke-opacity="0.22" stroke-width="1.5" stroke-dasharray="4,4"/>
                     <path d="M100 220 C 150 280, 160 80, 200 190" fill="none" stroke="#e1002b" stroke-opacity="0.20" stroke-width="1.5"/>
                     <circle cx="150" cy="130" r="3.5" fill="#e1002b" fill-opacity="0.4"/>
@@ -90,19 +130,23 @@
     </div>
 
     <div class="flex h-screen overflow-hidden relative z-10">
+
         <!-- Sidebar -->
         <aside id="sidebar" class="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md w-64 border-r border-gray-200 dark:border-gray-800 flex flex-col fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 z-20 shadow-lg md:shadow-none transition-colors duration-200">
+            
             <div class="h-16 flex items-center justify-center px-4 border-b border-gray-200 dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-900">
-                <span class="text-xl font-bold text-primary tracking-wide">TELKOMSEL</span>
+                <img src="logo-telkomsel.webp" alt="Telkomsel Logo" class="h-12 w-auto object-contain shrink-0">
             </div>
+
             <nav class="flex-1 overflow-y-auto py-4 relative z-30">
                 <ul class="space-y-1 px-3">
-                    <li><a href="#" data-target="view-summary" class="nav-item flex items-center px-3 py-2.5 bg-primary/15 text-primary rounded-lg font-medium transition-colors"><i class="fas fa-chart-pie w-5 mr-3 text-center"></i> utive Summary</a></li>
+                    <li><a href="#" data-target="view-summary" class="nav-item flex items-center px-3 py-2.5 bg-primary/15 text-primary rounded-lg font-medium transition-colors"><i class="fas fa-chart-pie w-5 mr-3 text-center"></i> Executive Summary</a></li>
                     <li><a href="#" data-target="view-users" class="nav-item flex items-center px-3 py-2.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg font-medium transition-colors"><i class="fas fa-users w-5 mr-3 text-center"></i> Analysis Subscriber</a></li>
                     <li><a href="#" data-target="view-map" class="nav-item flex items-center px-3 py-2.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg font-medium transition-colors"><i class="fas fa-map-marked-alt w-5 mr-3 text-center"></i> Regional Map (Jatim)</a></li>
                     <li><a href="#" data-target="view-epg" class="nav-item flex items-center px-3 py-2.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg font-medium transition-colors"><i class="fas fa-tv w-5 mr-3 text-center"></i> EPG Status & Capacity</a></li>
                     <li><a href="#" data-target="view-cdn" class="nav-item flex items-center px-3 py-2.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg font-medium transition-colors"><i class="fas fa-network-wired w-5 mr-3 text-center"></i> CDN Performance</a></li>
                 </ul>
+
                 <div class="mt-8 px-6 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">System</div>
                 <ul class="space-y-1 px-3 mt-2">
                     <li><a href="#" class="flex items-center px-3 py-2.5 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg font-medium transition-colors"><i class="fas fa-sync-alt w-5 mr-3 text-center"></i> Sync Schedule</a></li>
@@ -116,37 +160,71 @@
 
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col h-screen relative overflow-hidden">
+            
             <header class="h-16 bg-gradient-to-r from-tk-dark to-primary border-b border-red-900 flex items-center justify-between px-4 sm:px-6 lg:px-8 z-10 shadow-md relative">
+                
                 <div class="flex items-center flex-1">
                     <button id="mobileMenuBtn" class="text-white/80 hover:text-white focus:outline-none md:hidden mr-4"><i class="fas fa-bars text-xl"></i></button>
+                    <div class="hidden md:block w-32"></div> 
                 </div>
+
                 <div class="hidden md:flex flex-col items-center justify-center absolute left-1/2 transform -translate-x-1/2 whitespace-nowrap">
                     <span class="text-[10px] font-bold tracking-widest text-white/90 uppercase leading-tight">Monitoring Dashboard</span>
                     <span class="text-xl font-extrabold text-white tracking-wide leading-tight">EPG & CDN Network</span>
                 </div>
+
                 <div class="flex items-center justify-end space-x-3 sm:space-x-4 flex-1 flex-shrink-0">
+                    <div class="hidden lg:flex relative w-48 xl:w-56">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3"><i class="fas fa-search text-white/60"></i></span>
+                        <input type="text" id="searchInput" class="w-full bg-white/10 text-white text-sm border border-white/20 rounded-full pl-10 pr-4 py-1.5 focus:ring-2 focus:ring-white focus:bg-white focus:text-gray-800 dark:focus:text-gray-900 transition-all placeholder-white/70" placeholder="Search area/EPG...">
+                    </div>
+
                     <button id="darkModeToggle" class="text-white hover:text-white/80 transition focus:outline-none p-1.5 rounded-lg bg-white/10 border border-white/20" title="Toggle Display Mode">
                         <i id="darkModeIcon" class="fas fa-moon text-sm"></i>
                     </button>
+
+                    <button id="alertBellBtn" class="relative text-white hover:text-white/80 transition focus:outline-none" title="Active System Alerts">
+                        <i class="far fa-bell text-xl"></i>
+                        <span id="bellBadge" class="absolute top-0 right-0 block h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-tk-dark animate-pulse-fast"></span>
+                    </button>
+                    
                     <div class="h-8 w-8 bg-white/20 rounded-full flex items-center justify-center text-white font-bold border border-white/30 cursor-pointer hover:bg-white/30 transition text-sm">P</div>
+
+                    <div class="bg-white px-2 py-1.5 rounded-lg flex items-center justify-center shadow-inner h-11 overflow-hidden ml-1">
+                        <img src="logo-maxstream.png" alt="Maxstream TV" class="h-full w-auto object-contain">
+                    </div>
                 </div>
             </header>
 
+            <div id="alertToastContainer" class="absolute top-20 right-6 z-50 flex flex-col space-y-3 pointer-events-none max-w-sm w-full"></div>
+
             <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 relative scroll-smooth" id="print-area">
+                
                 <div class="mb-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 relative z-30">
                     <div>
-                        <h1 id="page-title" class="text-2xl font-bold text-gray-800 dark:text-white">utive Summary</h1>
-                        <p id="timeRangeIndicator" class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Showing data for: Live Update from Sheets</p>
+                        <h1 id="page-title" class="text-2xl font-bold text-gray-800 dark:text-white">Executive Summary</h1>
+                        <p id="timeRangeIndicator" class="text-sm text-gray-500 dark:text-gray-400 mt-0.5"></p>
                     </div>
+
                     <div class="flex flex-wrap items-center gap-3">
                         <div class="flex items-center space-x-1 bg-gray-100 dark:bg-gray-900 p-1 rounded-lg border border-gray-200 dark:border-gray-700">
                             <button data-range="24h" class="time-filter-btn px-3 py-1.5 rounded-md text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 transition">24 Hours</button>
-                            <button data-range="7d" class="time-filter-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white dark:bg-gray-800 text-primary shadow-sm">Live (7 Days)</button>
+                            <button data-range="7d" class="time-filter-btn px-3 py-1.5 rounded-md text-xs font-medium bg-white dark:bg-gray-800 text-primary shadow-sm">7 Days</button>
+                            <button data-range="custom" class="time-filter-btn px-3 py-1.5 rounded-md text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 transition"><i class="fas fa-calendar-alt mr-1"></i> Custom</button>
                         </div>
+
+                        <div id="customDateContainer" class="hidden flex items-center space-x-2 bg-gray-50 dark:bg-gray-900 p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 text-xs">
+                            <input type="date" id="startDate" class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded px-2 py-1 text-gray-700 dark:text-gray-200 focus:outline-none">
+                            <span class="text-gray-400">to</span>
+                            <input type="date" id="endDate" class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded px-2 py-1 text-gray-700 dark:text-gray-200 focus:outline-none">
+                            <button id="applyCustomDate" class="bg-primary text-white px-2.5 py-1 rounded font-medium hover:bg-red-700 transition">Apply</button>
+                        </div>
+
                         <div class="relative">
                             <button id="exportDropdownBtn" class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 px-4 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center shadow-sm focus:outline-none">
                                 <i class="fas fa-download mr-2 text-primary"></i> Export <i class="fas fa-chevron-down ml-2 text-xs text-gray-400"></i>
                             </button>
+                            
                             <div id="exportDropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl py-2 z-50">
                                 <button id="btnExportPdf" class="w-full text-left px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-red-50 dark:hover:bg-red-950/30 hover:text-red-600 flex items-center transition">
                                     <i class="fas fa-file-pdf mr-3 text-red-500 text-base w-5 text-center"></i> Export PDF
@@ -159,38 +237,50 @@
                     </div>
                 </div>
 
-                <!-- VIEW 1: UTIVE SUMMARY -->
+                <!-- VIEW 1: EXECUTIVE SUMMARY -->
                 <div id="view-summary" class="view-section block space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 border-l-4 border-l-blue-500 flex flex-col justify-center">
                             <p class="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">TOTAL ONLINE USERS EPG (AREA 3)</p>
-                            <h3 id="stat-total-online" class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight">Memuat...</h3>
+                            <h3 id="stat-total-online" class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight">616,741</h3>
+                            <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">jumlah dari chart per EPG</p>
                         </div>
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 border-l-4 border-l-green-500 flex flex-col justify-center">
-                            <p class="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">TOTAL ONLINE USERS SURABAYA</p>
-                            <h3 id="stat-sby-online" class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight">Memuat...</h3>
+                            <p class="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">ONLINE USER TERTINGGI</p>
+                            <h3 id="stat-sby-online" class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight">75,845</h3>
+                            <p class="text-xs text-green-600 dark:text-green-400 font-medium mt-2"><i class="fas fa-crown text-yellow-500 mr-1"></i> Yogya_EPG07</p>
                         </div>
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 border-l-4 border-l-red-500 flex flex-col justify-center">
                             <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Peak Bandwidth</p>
-                            <h3 id="stat-peak-bw" class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight">Memuat...</h3>
+                            <h3 id="stat-peak-bw" class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight">2,667.55 Mbps</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium">Surabaya_3KH_Edge_Node (41.55%)</p>
                         </div>
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 border-l-4 border-l-purple-500 flex flex-col justify-center">
                             <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Highest Storage</p>
-                            <h3 id="stat-high-storage" class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight">Memuat...</h3>
+                            <h3 id="stat-high-storage" class="text-3xl font-bold text-gray-800 dark:text-white tracking-tight">72.75%</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium">Semarang02 | terpakai terbesar 118.76 TB (SBY04)</p>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2"><i class="fas fa-server text-blue-500 mr-2"></i> Top 5 Occupancy</h3>
-                            <div id="list-top-occupancy" class="space-y-3 text-sm">Memuat data dari sheets...</div>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2 flex items-center">
+                                <i class="fas fa-server text-blue-500 mr-2"></i> Top 5 Occupancy
+                            </h3>
+                            <div id="list-top-occupancy" class="space-y-3 text-sm"></div>
                         </div>
+
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2"><i class="fas fa-microchip text-red-500 mr-2"></i> Top 5 CPU Usage</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2 flex items-center">
+                                <i class="fas fa-microchip text-red-500 mr-2"></i> Top 5 CPU Usage
+                            </h3>
                             <div id="list-top-cpu" class="space-y-3 text-sm"></div>
                         </div>
+
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2"><i class="fas fa-memory text-yellow-500 mr-2"></i> Top 5 Memory Usage</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2 flex items-center">
+                                <i class="fas fa-memory text-yellow-500 mr-2"></i> Top 5 Memory Usage
+                            </h3>
                             <div id="list-top-memory" class="space-y-3 text-sm"></div>
                         </div>
                     </div>
@@ -200,12 +290,16 @@
                             <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2">Top 5 EPG Subscribers (Area 3)</h3>
                             <ul id="list-top-epg-subs" class="space-y-4"></ul>
                         </div>
-                        <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2">Top 5 User Growth</h3>
+
+                        <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-arrow-trend-up text-6xl text-green-500"></i></div>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2">Top 5 User Growth (Jatim)</h3>
                             <ul id="list-top-growth" class="space-y-3"></ul>
                         </div>
-                        <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2">Top 5 User Decline</h3>
+
+                        <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-arrow-trend-down text-6xl text-red-500"></i></div>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm mb-4 border-b dark:border-gray-700 pb-2">Top 5 User Decline (Jatim)</h3>
                             <ul id="list-top-decline" class="space-y-3"></ul>
                         </div>
                     </div>
@@ -215,25 +309,107 @@
                 <div id="view-users" class="view-section hidden space-y-6">
                     <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col">
                         <div class="px-5 py-3 border-b border-gray-100 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-800">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-sm">Monthly Data (Live dari Sheets)</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm">Monthly Data (Registered vs Active)</h3>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm text-left">
                                 <thead class="text-xs text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-700">
-                                    <tr><th class="px-5 py-3 font-semibold">Bulan</th><th class="px-5 py-3 font-semibold text-right">Registered User</th><th class="px-5 py-3 font-semibold text-right">Active User</th></tr>
+                                    <tr><th class="px-5 py-3 font-semibold">Month</th><th class="px-5 py-3 font-semibold text-right">Registered User</th><th class="px-5 py-3 font-semibold text-right">Active User</th></tr>
                                 </thead>
                                 <tbody id="subscriber-table-body" class="divide-y divide-gray-100 dark:divide-gray-700"></tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 flex flex-col justify-center">
+                            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Total Online Users (Selected Range)</p>
+                            <h3 id="card-dynamic-users" class="text-3xl font-extrabold text-primary tracking-tight">616,741</h3>
+                            <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">calculated from active filter</p>
+                        </div>
+                        <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 flex flex-col justify-center relative overflow-hidden">
+                            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">TOTAL ONLINE SUBSCRIBERS</p>
+                            <h3 id="card-sby-online-sub" class="text-3xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">75,845</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium">(YOGYA_EPG07)</p>
+                            <div class="absolute right-4 bottom-2 opacity-10 text-6xl"><i class="fas fa-city text-blue-500"></i></div>
+                        </div>
+                        <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 flex flex-col justify-center">
+                            <p class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2 border-b dark:border-gray-700 pb-1">Reg vs Unsubscribe Status (MoM)</p>
+                            <div class="space-y-1 text-sm">
+                                <div class="flex justify-between"><span class="text-gray-600 dark:text-gray-300">September 2026</span><span class="font-bold text-red-500">-20,024 <i class="fas fa-arrow-down text-xs"></i></span></div>
+                                <div class="flex justify-between"><span class="text-gray-600 dark:text-gray-300">October 2026</span><span class="font-bold text-red-500">-6,012 <i class="fas fa-arrow-down text-xs"></i></span></div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mt-2">*Negative value: Churned users exceed new registrations.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center" id="chart1-title">Online Users</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center" id="chart1-title">Online User Last Week per EPG</h3>
                             <div class="relative h-[450px] w-full"><canvas id="epgLastWeekChart"></canvas></div>
                         </div>
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center" id="chart2-title">Surabaya Data</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center" id="chart2-title">Online User Surabaya per Hari (per EPG)</h3>
                             <div class="relative h-[450px] w-full"><canvas id="sbyStackedChart"></canvas></div>
+                        </div>
+                    </div>
+
+                    <!-- Additional City Detail Table from Image (Positioned at the very bottom, without Total row) -->
+                    <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col">
+                        <div class="px-5 py-3 border-b border-gray-100 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-800">
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm">Subscriber Distribution by City (August 2026 vs September 2026)</h3>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left">
+                                <thead class="text-xs text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-700">
+                                    <tr>
+                                        <th class="px-5 py-3 font-semibold">Kota</th>
+                                        <th class="px-5 py-3 font-semibold text-right">Agustus 2026</th>
+                                        <th class="px-5 py-3 font-semibold text-right">September 2026</th>
+                                        <th class="px-5 py-3 font-semibold text-right">Selisih (MoM)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                                    <tr><td class="px-5 py-2.5 font-medium">SURABAYA</td><td class="px-5 py-2.5 text-right">41,950</td><td class="px-5 py-2.5 text-right">42,062</td><td class="px-5 py-2.5 text-right font-bold text-green-600">112</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">MALANG</td><td class="px-5 py-2.5 text-right">13,540</td><td class="px-5 py-2.5 text-right">13,564</td><td class="px-5 py-2.5 text-right font-bold text-green-600">24</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">SIDOARJO</td><td class="px-5 py-2.5 text-right">18,168</td><td class="px-5 py-2.5 text-right">18,154</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-14</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">PASURUAN</td><td class="px-5 py-2.5 text-right">7,862</td><td class="px-5 py-2.5 text-right">7,838</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-24</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">JEMBER</td><td class="px-5 py-2.5 text-right">7,705</td><td class="px-5 py-2.5 text-right">7,690</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-15</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">GRESIK</td><td class="px-5 py-2.5 text-right">5,031</td><td class="px-5 py-2.5 text-right">5,026</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-5</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">BANYUWANGI</td><td class="px-5 py-2.5 text-right">4,923</td><td class="px-5 py-2.5 text-right">4,896</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-27</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">PROBOLINGGO</td><td class="px-5 py-2.5 text-right">6,191</td><td class="px-5 py-2.5 text-right">6,176</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-15</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">KEDIRI</td><td class="px-5 py-2.5 text-right">3,715</td><td class="px-5 py-2.5 text-right">3,691</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-24</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">MOJOKERTO</td><td class="px-5 py-2.5 text-right">4,205</td><td class="px-5 py-2.5 text-right">4,196</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-9</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">JOMBANG</td><td class="px-5 py-2.5 text-right">4,586</td><td class="px-5 py-2.5 text-right">4,588</td><td class="px-5 py-2.5 text-right font-bold text-green-600">2</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">NGANJUK</td><td class="px-5 py-2.5 text-right">4,173</td><td class="px-5 py-2.5 text-right">4,138</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-35</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">MADIUN</td><td class="px-5 py-2.5 text-right">2,488</td><td class="px-5 py-2.5 text-right">2,494</td><td class="px-5 py-2.5 text-right font-bold text-green-600">6</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">BOJONEGORO</td><td class="px-5 py-2.5 text-right">2,398</td><td class="px-5 py-2.5 text-right">2,417</td><td class="px-5 py-2.5 text-right font-bold text-green-600">19</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">BATU</td><td class="px-5 py-2.5 text-right">2,915</td><td class="px-5 py-2.5 text-right">2,916</td><td class="px-5 py-2.5 text-right font-bold text-green-600">1</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">BLITAR</td><td class="px-5 py-2.5 text-right">1,893</td><td class="px-5 py-2.5 text-right">1,910</td><td class="px-5 py-2.5 text-right font-bold text-green-600">17</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">SITUBONDO</td><td class="px-5 py-2.5 text-right">2,677</td><td class="px-5 py-2.5 text-right">2,683</td><td class="px-5 py-2.5 text-right font-bold text-green-600">6</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">TULUNGAGUNG</td><td class="px-5 py-2.5 text-right">1,570</td><td class="px-5 py-2.5 text-right">1,563</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-7</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">TUBAN</td><td class="px-5 py-2.5 text-right">1,997</td><td class="px-5 py-2.5 text-right">1,978</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-19</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">LAMONGAN</td><td class="px-5 py-2.5 text-right">1,961</td><td class="px-5 py-2.5 text-right">1,945</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-16</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">PONOROGO</td><td class="px-5 py-2.5 text-right">1,743</td><td class="px-5 py-2.5 text-right">1,741</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-2</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">BONDOWOSO</td><td class="px-5 py-2.5 text-right">1,917</td><td class="px-5 py-2.5 text-right">1,921</td><td class="px-5 py-2.5 text-right font-bold text-green-600">4</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">MAGETAN</td><td class="px-5 py-2.5 text-right">1,894</td><td class="px-5 py-2.5 text-right">1,890</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-4</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">NGAWI</td><td class="px-5 py-2.5 text-right">1,670</td><td class="px-5 py-2.5 text-right">1,672</td><td class="px-5 py-2.5 text-right font-bold text-green-600">2</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">LUMAJANG</td><td class="px-5 py-2.5 text-right">2,263</td><td class="px-5 py-2.5 text-right">2,252</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-11</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">BANGKALAN</td><td class="px-5 py-2.5 text-right">2,986</td><td class="px-5 py-2.5 text-right">2,981</td><td class="px-5 py-2.5 text-right font-bold text-red-500">-5</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">PAMEKASAN</td><td class="px-5 py-2.5 text-right">1,297</td><td class="px-5 py-2.5 text-right">1,318</td><td class="px-5 py-2.5 text-right font-bold text-green-600">21</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">SUMENEP</td><td class="px-5 py-2.5 text-right">1,275</td><td class="px-5 py-2.5 text-right">1,280</td><td class="px-5 py-2.5 text-right font-bold text-green-600">5</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">PACITAN</td><td class="px-5 py-2.5 text-right">667</td><td class="px-5 py-2.5 text-right">670</td><td class="px-5 py-2.5 text-right font-bold text-green-600">3</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">TRENGGALEK</td><td class="px-5 py-2.5 text-right">472</td><td class="px-5 py-2.5 text-right">476</td><td class="px-5 py-2.5 text-right font-bold text-green-600">4</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">SAMPANG</td><td class="px-5 py-2.5 text-right">539</td><td class="px-5 py-2.5 text-right">544</td><td class="px-5 py-2.5 text-right font-bold text-green-600">5</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">JATIM SURAMADU (SURABAYA)</td><td class="px-5 py-2.5 text-right">202</td><td class="px-5 py-2.5 text-right">202</td><td class="px-5 py-2.5 text-right font-bold">0</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">JATIM TENGAH (KEDIRI)</td><td class="px-5 py-2.5 text-right">31</td><td class="px-5 py-2.5 text-right">31</td><td class="px-5 py-2.5 text-right font-bold">0</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">JATIMSEL TIMUR (PASURUAN)</td><td class="px-5 py-2.5 text-right">45</td><td class="px-5 py-2.5 text-right">45</td><td class="px-5 py-2.5 text-right font-bold">0</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">JATIM TENGAH TIMUR (SIDOARJ)</td><td class="px-5 py-2.5 text-right">85</td><td class="px-5 py-2.5 text-right">85</td><td class="px-5 py-2.5 text-right font-bold">0</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">JATIM SELATAN (MALANG)</td><td class="px-5 py-2.5 text-right">40</td><td class="px-5 py-2.5 text-right">40</td><td class="px-5 py-2.5 text-right font-bold">0</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">JATIM BARAT (MADIUN)</td><td class="px-5 py-2.5 text-right">28</td><td class="px-5 py-2.5 text-right">28</td><td class="px-5 py-2.5 text-right font-bold">0</td></tr>
+                                    <tr><td class="px-5 py-2.5 font-medium">JATIM UTARA (GRESIK)</td><td class="px-5 py-2.5 text-right">22</td><td class="px-5 py-2.5 text-right">22</td><td class="px-5 py-2.5 text-right font-bold">0</td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -241,84 +417,362 @@
                 <!-- VIEW 2.5: REGIONAL MAP -->
                 <div id="view-map" class="view-section hidden space-y-6">
                     <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                        <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4">East Java Regional Map & User Distribution</h3>
+                        <div class="flex items-center justify-between mb-4 border-b dark:border-gray-700 pb-3">
+                            <div>
+                                <h3 class="font-bold text-gray-800 dark:text-white text-lg">East Java Regional Map & User Distribution</h3>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Interactive geographic visualization of active subscribers per city/regency (DAPOT JATIM)</p>
+                            </div>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-lg text-xs font-bold">Active Nodes: 31 Cities</span>
+                        </div>
                         <div id="eastJavaMap"></div>
                     </div>
                 </div>
 
                 <!-- VIEW 3: EPG STATUS & CAPACITY -->
-                <div id="view-epg" class="view-section hidden space-y-6">
-                    <div class="mb-2">
-                        <h2 class="text-xl font-bold text-gray-800 dark:text-white">Occupancy, CPU Usage and Memory Usage (%)</h2>
+                <div id="view-epg" class="view-section hidden space-y-8">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">EPG Status & Capacity Analytics</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Monitoring terpisah untuk Occupancy, CPU Usage, dan Memory Usage pada setiap EPG node</p>
                     </div>
-                    <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                        <div class="relative h-72 w-full"><canvas id="occupancyChart"></canvas></div>
+
+                    <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 space-y-4">
+                        <div class="flex items-center justify-between border-b dark:border-gray-700 pb-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+                                    <i class="fas fa-server text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-900 dark:text-white text-lg">1. EPG Occupancy Rate (%)</h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Persentase okupansi user aktif pada tiap EPG ZTE Node</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-semibold text-gray-400 uppercase">Top Node</span>
+                                <p class="text-sm font-bold text-blue-600 dark:text-blue-400">YGY_EPG07 (36.13%)</p>
+                            </div>
+                        </div>
+                        <div class="relative h-80 w-full">
+                            <canvas id="occupancyChart"></canvas>
+                        </div>
                     </div>
-                    <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                        <div class="relative h-64 w-full"><canvas id="cpuChart"></canvas></div>
+
+                    <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 space-y-4">
+                        <div class="flex items-center justify-between border-b dark:border-gray-700 pb-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-lg bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 flex items-center justify-center font-bold">
+                                    <i class="fas fa-microchip text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-900 dark:text-white text-lg">2. EPG CPU Usage (%)</h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Beban prosesor rata-rata per server EPG</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-semibold text-gray-400 uppercase">Highest Average</span>
+                                <p class="text-sm font-bold text-red-600 dark:text-red-400">SBY_EPG10 (28.50%)</p>
+                            </div>
+                        </div>
+                        <div class="relative h-80 w-full">
+                            <canvas id="cpuChart"></canvas>
+                        </div>
                     </div>
-                    <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5 mb-8">
-                        <div class="relative h-64 w-full"><canvas id="memoryChart"></canvas></div>
+
+                    <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 space-y-4">
+                        <div class="flex items-center justify-between border-b dark:border-gray-700 pb-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-lg bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
+                                    <i class="fas fa-memory text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-900 dark:text-white text-lg">3. EPG Memory Usage (%)</h3>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Konsumsi memori RAM server EPG</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs font-semibold text-gray-400 uppercase">Highest Usage</span>
+                                <p class="text-sm font-bold text-amber-600 dark:text-amber-400">SBY_EPG10 (79.00%)</p>
+                            </div>
+                        </div>
+                        <div class="relative h-80 w-full">
+                            <canvas id="memoryChart"></canvas>
+                        </div>
                     </div>
                 </div>
 
                 <!-- VIEW 4: CDN PERFORMANCE -->
                 <div id="view-cdn" class="view-section hidden space-y-6">
+                    <div class="bg-[#a6001b] rounded-xl p-6 shadow-md">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-lg p-5 shadow-sm">
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Highest Peak Bandwidth</p>
+                                <h3 id="cdn-card-peak" class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">2,667.55 Mbps</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Surabaya_3KH_Edge_Node (41.55%)</p>
+                            </div>
+                            <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-lg p-5 shadow-sm">
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Highest Storage</p>
+                                <h3 id="cdn-card-storage" class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">72.75%</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Semarang02 | terpakai terbesar 118.76 TB (SBY04)</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
                             <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center">CDN Storage Usage (%)</h3>
                             <div class="relative h-72 w-full"><canvas id="cdnStoragePctChart"></canvas></div>
                         </div>
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center">CDN Used Storage (TB)</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center">Used Storage (TB)</h3>
                             <div class="relative h-72 w-full"><canvas id="cdnStorageTbChart"></canvas></div>
                         </div>
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center">CDN Used Bandwidth (%)</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center">CDN Bandwidth Usage (%)</h3>
                             <div class="relative h-72 w-full"><canvas id="cdnUsedBwChart"></canvas></div>
                         </div>
                         <div class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center">CDN Peak Bandwidth (Mbps)</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-4 text-center">Peak Bandwidth (Mbps)</h3>
                             <div class="relative h-72 w-full"><canvas id="cdnPeakBwChart"></canvas></div>
                         </div>
                     </div>
                 </div>
 
                 <footer class="mt-auto text-center text-sm text-gray-500 dark:text-gray-400 pb-4 pt-8">
-                    &copy; 2026 EPG & CDN Network Dashboard. Live Data from Google Sheets.
+                    &copy; 2026 EPG & CDN Network Dashboard. Managed by Network Engineering Team.
                 </footer>
             </div>
         </main>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', function() {
             
-            // ==========================================
-            // URL WEB APP TERBARU ANDA
-            // ==========================================
-            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxYRhwGDNWF2XzB5YLQnwWCsbU6CSSruLbbVIJgqTdtRg4rrybxy0qRjQmLQ8nWGb8J/exec';
-
-            let globalFilterData = null;
-
-            // ==========================================
-            // LOGIKA PENGAMBILAN DATA LIVE (TANPA MOCKUP)
-            // ==========================================
-            try {
-                const response = await fetch(SCRIPT_URL);
-                globalFilterData = await response.json();
-                
-                if (globalFilterData.error) {
-                    alert("Database Error: " + globalFilterData.error);
-                    return;
+            // DATA REGIONAL JATIM, EPG & CDN MONITORING
+            let globalFilterData = {
+                '7d': {
+                    exec: {
+                        totalOnline: Number(616741).toLocaleString(),
+                        sbyOnline: Number(75845).toLocaleString(),
+                        peakBw: '2,667.55 Mbps',
+                        highStorage: '72.75%',
+                        topOccupancy: [
+                            { name: 'YGY_EPG07', val: '36.13%' },
+                            { name: 'PKL_EPG1', val: '36.03%' },
+                            { name: 'DPS_EPG4', val: '27.44%' },
+                            { name: 'SBY_EPG12', val: '27.43%' },
+                            { name: 'SBY_EPG08', val: '26.37%' }
+                        ],
+                        topCpu: [
+                            { name: 'SBY_EPG10', val: '28.50%' },
+                            { name: 'SBY_EPG09', val: '11.15%' },
+                            { name: 'SBY_EPG11', val: '8.75%' },
+                            { name: 'SBY_EPG12', val: '6.75%' },
+                            { name: 'SBY_EPG08', val: '6.09%' }
+                        ],
+                        topMemory: [
+                            { name: 'SBY_EPG10', val: '79.00%' },
+                            { name: 'SBY_EPG08', val: '78.70%' },
+                            { name: 'SBY_EPG11', val: '78.40%' },
+                            { name: 'SBY_EPG12', val: '77.40%' },
+                            { name: 'SBY_EPG09', val: '77.10%' }
+                        ],
+                        topEpgSubs: [
+                            { name: '1. Yogya_EPG07', val: '75,845', width: '100%' },
+                            { name: '2. Pekalongan_EPG1', val: '64,847', width: '85%' },
+                            { name: '3. Denpasar_EPG4', val: '57,626', width: '76%' },
+                            { name: '4. SBY_EPG12', val: '48,009', width: '63%' },
+                            { name: '5. SBY_EPG08', val: '46,134', width: '61%' }
+                        ],
+                        topGrowth: [
+                            { name: '1. Surabaya', val: '+112' },
+                            { name: '2. Malang', val: '+24' },
+                            { name: '3. Pamekasan', val: '+21' },
+                            { name: '4. Bojonegoro', val: '+19' },
+                            { name: '5. Blitar', val: '+17' }
+                        ],
+                        topDecline: [
+                            { name: '1. Nganjuk', val: '-35' },
+                            { name: '2. Banyuwangi', val: '-27' },
+                            { name: '3. Kediri', val: '-24' },
+                            { name: '4. Pasuruan', val: '-24' },
+                            { name: '5. Tuban', val: '-19' }
+                        ]
+                    },
+                    subscribers: {
+                        totalUsers: Number(616741).toLocaleString(),
+                        sbySub: Number(75845).toLocaleString(),
+                        tableRows: [
+                            { month: 'August 2026', registered_user: 2461716, active_user: 1627168 },
+                            { month: 'September 2026', registered_user: 2455416, active_user: 1628727 },
+                            { month: 'October 2026', registered_user: 2314579, active_user: 1544480 }
+                        ]
+                    },
+                    mapLocations: [
+                        { name: 'Surabaya', coords: [-7.2575, 112.7521], users: '42,062', status: 'Growth (+112 MoM)' },
+                        { name: 'Sidoarjo', coords: [-7.4478, 112.7183], users: '18,154', status: 'Decline (-14 MoM)' },
+                        { name: 'Malang', coords: [-7.9666, 112.6326], users: '13,564', status: 'Growth (+24 MoM)' },
+                        { name: 'Pasuruan', coords: [-7.6453, 112.9075], users: '7,838', status: 'Decline (-24 MoM)' },
+                        { name: 'Jember', coords: [-8.1724, 113.7003], users: '7,690', status: 'Decline (-15 MoM)' },
+                        { name: 'Probolinggo', coords: [-7.7543, 113.2159], users: '6,176', status: 'Decline (-15 MoM)' },
+                        { name: 'Gresik', coords: [-7.1566, 112.6555], users: '5,026', status: 'Decline (-5 MoM)' },
+                        { name: 'Banyuwangi', coords: [-8.2192, 114.3691], users: '4,896', status: 'Decline (-27 MoM)' },
+                        { name: 'Jombang', coords: [-7.5460, 112.2331], users: '4,588', status: 'Growth (+2 MoM)' },
+                        { name: 'Mojokerto', coords: [-7.4726, 112.4381], users: '4,196', status: 'Decline (-9 MoM)' },
+                        { name: 'Nganjuk', coords: [-7.6050, 111.9035], users: '4,138', status: 'Decline (-35 MoM)' },
+                        { name: 'Kediri', coords: [-7.8480, 112.0178], users: '3,691', status: 'Decline (-24 MoM)' },
+                        { name: 'Bangkalan', coords: [-7.0454, 112.7351], users: '2,981', status: 'Decline (-5 MoM)' },
+                        { name: 'Batu', coords: [-7.8700, 112.5270], users: '2,916', status: 'Growth (+1 MoM)' },
+                        { name: 'Situbondo', coords: [-7.7056, 114.0049], users: '2,683', status: 'Growth (+6 MoM)' },
+                        { name: 'Madiun', coords: [-7.6298, 111.5239], users: '2,494', status: 'Growth (+6 MoM)' },
+                        { name: 'Bojonegoro', coords: [-7.1502, 111.8818], users: '2,417', status: 'Growth (+19 MoM)' },
+                        { name: 'Lumajang', coords: [-8.1331, 113.2246], users: '2,252', status: 'Decline (-11 MoM)' },
+                        { name: 'Tuban', coords: [-6.8977, 112.0526], users: '1,978', status: 'Decline (-19 MoM)' },
+                        { name: 'Lamongan', coords: [-7.1182, 112.4158], users: '1,945', status: 'Decline (-16 MoM)' },
+                        { name: 'Bondowoso', coords: [-7.9135, 113.8214], users: '1,921', status: 'Growth (+4 MoM)' },
+                        { name: 'Blitar', coords: [-8.0983, 112.1681], users: '1,910', status: 'Growth (+17 MoM)' },
+                        { name: 'Magetan', coords: [-7.6534, 111.3283], users: '1,890', status: 'Decline (-4 MoM)' },
+                        { name: 'Ponorogo', coords: [-7.8671, 111.4644], users: '1,741', status: 'Decline (-2 MoM)' },
+                        { name: 'Ngawi', coords: [-7.4039, 111.4447], users: '1,672', status: 'Growth (+2 MoM)' },
+                        { name: 'Tulungagung', coords: [-8.0691, 111.9007], users: '1,563', status: 'Decline (-7 MoM)' },
+                        { name: 'Pamekasan', coords: [-7.1610, 113.4839], users: '1,318', status: 'Growth (+21 MoM)' },
+                        { name: 'Sumenep', coords: [-7.0169, 113.8697], users: '1,280', status: 'Growth (+5 MoM)' },
+                        { name: 'Pacitan', coords: [-8.2056, 111.0924], users: '670', status: 'Growth (+3 MoM)' },
+                        { name: 'Sampang', coords: [-7.1866, 113.2394], users: '544', status: 'Growth (+5 MoM)' },
+                        { name: 'Trenggalek', coords: [-8.0500, 111.7167], users: '476', status: 'Growth (+4 MoM)' }
+                    ],
+                    epgCharts: {
+                        labels: ['YGY_EPG07', 'PKL_EPG1', 'DPS_EPG4', 'SBY_EPG12', 'SBY_EPG08', 'SBY_EPG09', 'SBY_EPG11', 'SBY_EPG10', 'SMG_EPG07', 'SMG_EPG09', 'SMG_EPG08', 'SLO_EPG01', 'SLO_EPG02', 'KDS_EPG01', 'KDS_EPG02', 'YGY_EPG05', 'YGY_EPG06'],
+                        occupancy: [36.13, 36.03, 27.44, 27.43, 26.37, 26.07, 26.03, 25.97, 18.40, 18.34, 18.04, 12.07, 12.00, 8.40, 8.36, 0.27, 0.24],
+                        cpu: [2.05, 2.18, 1.32, 6.75, 6.09, 11.15, 8.75, 28.50, 2.14, 1.79, 1.79, 1.58, 1.39, 1.59, 1.67, 3.96, 3.89],
+                        memory: [46.07, 47.40, 37.23, 77.40, 78.70, 77.10, 78.40, 79.00, 51.83, 45.79, 45.30, 45.00, 40.43, 45.00, 44.39, 44.10, 54.90]
+                    },
+                    cdnCharts: {
+                        peakPeakCard: '2,667.55 Mbps',
+                        storageCard: '72.75%',
+                        storagePctLabels: ['SMG02', 'SBY04', 'PKL01', 'YOG01', 'SBY01 VS3KS'],
+                        storagePct: [72.75, 49.31, 48.37, 47.32, 34.13],
+                        storageTbLabels: ['SBY04', 'PKL01', 'YOG01', 'SBY01 VS3KS', 'SMG02'],
+                        storageTb: [118.76, 116.51, 113.98, 76.47, 68.52],
+                        usedBwLabels: ['SBY', 'YOG01', 'PKL', 'SMG', 'SBY VS3KS'],
+                        usedBw: [41.55, 16.39, 16.18, 3.49, 0.01],
+                        peakBwLabels: ['SBY', 'PKL', 'YOG01', 'SMG', 'SBY VS3KS'],
+                        peakBw: [2667.55, 1434.37, 1323.82, 572.79, 0.30]
+                    },
+                    usersCharts: {
+                        title1: 'Online User Last Week per EPG',
+                        title2: 'Online User Surabaya per Hari (per EPG)',
+                        labels1: ['Yogya_EPG07', 'Pekalongan_EPG1', 'Denpasar_EPG4', 'SBY_EPG12', 'SBY_EPG08', 'SBY_EPG09', 'SBY_EPG11', 'SBY_EPG10', 'SMG_EPG07', 'SMG_EPG09', 'SMG_EPG08', 'Solo_EPG01', 'Solo_EPG02', 'Kudus_EPG01', 'Kudus_EPG02', 'Yogya_EPG05', 'Yogya_EPG06'],
+                        data1: [75845, 64847, 57626, 48009, 46134, 45610, 45560, 45481, 38640, 38539, 37918, 21119, 21008, 14677, 14614, 584, 530],
+                        labels2: ['19-Oct', '20-Oct', '21-Oct', '22-Oct', '23-Oct', '24-Oct', '25-Oct'],
+                        datasets2: [
+                            { label: 'SBY_EPG08', data: [6740, 6717, 6622, 6637, 6243, 6572, 6603], backgroundColor: '#3b82f6' },
+                            { label: 'SBY_EPG09', data: [6575, 6584, 6489, 6490, 6348, 6565, 6559], backgroundColor: '#ef4444' },
+                            { label: 'SBY_EPG10', data: [6535, 6660, 6536, 6511, 6197, 6520, 6522], backgroundColor: '#eab308' },
+                            { label: 'SBY_EPG11', data: [6454, 6534, 6495, 6474, 6262, 6672, 6669], backgroundColor: '#22c55e' },
+                            { label: 'SBY_EPG12', data: [6989, 7009, 6907, 6902, 6425, 6875, 6902], backgroundColor: '#f97316' }
+                        ]
+                    }
+                },
+                '24h': {
+                    exec: {
+                        totalOnline: '95,420',
+                        sbyOnline: '12,450',
+                        peakBw: '1,840.20 Mbps',
+                        highStorage: '72.75%',
+                        topOccupancy: [
+                            { name: 'YGY_EPG07', val: '36.13%' },
+                            { name: 'PKL_EPG1', val: '36.03%' },
+                            { name: 'DPS_EPG4', val: '27.44%' },
+                            { name: 'SBY_EPG12', val: '27.43%' },
+                            { name: 'SBY_EPG08', val: '26.37%' }
+                        ],
+                        topCpu: [
+                            { name: 'SBY_EPG10', val: '28.50%' },
+                            { name: 'SBY_EPG09', val: '11.15%' },
+                            { name: 'SBY_EPG11', val: '8.75%' },
+                            { name: 'SBY_EPG12', val: '6.75%' },
+                            { name: 'SBY_EPG08', val: '6.09%' }
+                        ],
+                        topMemory: [
+                            { name: 'SBY_EPG10', val: '79.00%' },
+                            { name: 'SBY_EPG08', val: '78.70%' },
+                            { name: 'SBY_EPG11', val: '78.40%' },
+                            { name: 'SBY_EPG12', val: '77.40%' },
+                            { name: 'SBY_EPG09', val: '77.10%' }
+                        ],
+                        topEpgSubs: [
+                            { name: '1. Yogya_EPG07', val: '12,450', width: '100%' },
+                            { name: '2. Pekalongan_EPG1', val: '11,200', width: '90%' },
+                            { name: '3. Denpasar_EPG4', val: '10,950', width: '85%' },
+                            { name: '4. SBY_EPG12', val: '9,810', width: '78%' },
+                            { name: '5. SBY_EPG11', val: '8,400', width: '65%' }
+                        ],
+                        topGrowth: [
+                            { name: '1. Surabaya', val: '+112' },
+                            { name: '2. Malang', val: '+24' },
+                            { name: '3. Pamekasan', val: '+21' },
+                            { name: '4. Bojonegoro', val: '+19' },
+                            { name: '5. Blitar', val: '+17' }
+                        ],
+                        topDecline: [
+                            { name: '1. Nganjuk', val: '-35' },
+                            { name: '2. Banyuwangi', val: '-27' },
+                            { name: '3. Kediri', val: '-24' },
+                            { name: '4. Pasuruan', val: '-24' },
+                            { name: '5. Tuban', val: '-19' }
+                        ]
+                    },
+                    subscribers: {
+                        totalUsers: '95,420',
+                        sbySub: '12,450',
+                        tableRows: [
+                            { month: 'September 2026', registered_user: 2455416, active_user: 1628727 },
+                            { month: 'October 2026', registered_user: 2314579, active_user: 1544480 }
+                        ]
+                    },
+                    mapLocations: [
+                        { name: 'Surabaya', coords: [-7.2575, 112.7521], users: '42,062', status: 'Growth (+112 MoM)' },
+                        { name: 'Sidoarjo', coords: [-7.4478, 112.7183], users: '18,154', status: 'Decline (-14 MoM)' },
+                        { name: 'Malang', coords: [-7.9666, 112.6326], users: '13,564', status: 'Growth (+24 MoM)' },
+                        { name: 'Pasuruan', coords: [-7.6453, 112.9075], users: '7,838', status: 'Decline (-24 MoM)' },
+                        { name: 'Jember', coords: [-8.1724, 113.7003], users: '7,690', status: 'Decline (-15 MoM)' },
+                        { name: 'Banyuwangi', coords: [-8.2192, 114.3691], users: '4,896', status: 'Decline (-27 MoM)' }
+                    ],
+                    epgCharts: {
+                        labels: ['YGY_EPG07', 'PKL_EPG1', 'DPS_EPG4', 'SBY_EPG12', 'SBY_EPG08', 'SBY_EPG09', 'SBY_EPG11', 'SBY_EPG10', 'SMG_EPG07', 'SMG_EPG09', 'SMG_EPG08', 'SLO_EPG01', 'SLO_EPG02', 'KDS_EPG01', 'KDS_EPG02', 'YGY_EPG05', 'YGY_EPG06'],
+                        occupancy: [36.13, 36.03, 27.44, 27.43, 26.37, 26.07, 26.03, 25.97, 18.40, 18.34, 18.04, 12.07, 12.00, 8.40, 8.36, 0.27, 0.24],
+                        cpu: [2.05, 2.18, 1.32, 6.75, 6.09, 11.15, 8.75, 28.50, 2.14, 1.79, 1.79, 1.58, 1.39, 1.59, 1.67, 3.96, 3.89],
+                        memory: [46.07, 47.40, 37.23, 77.40, 78.70, 77.10, 78.40, 79.00, 51.83, 45.79, 45.30, 45.00, 40.43, 45.00, 44.39, 44.10, 54.90]
+                    },
+                    cdnCharts: {
+                        peakPeakCard: '1,840.20 Mbps',
+                        storageCard: '72.75%',
+                        storagePctLabels: ['SMG02', 'SBY04', 'PKL01', 'YOG01', 'SBY01 VS3KS'],
+                        storagePct: [72.75, 49.31, 48.37, 47.32, 34.13],
+                        storageTbLabels: ['SBY04', 'PKL01', 'YOG01', 'SBY01 VS3KS', 'SMG02'],
+                        storageTb: [118.76, 116.51, 113.98, 76.47, 68.52],
+                        usedBwLabels: ['SBY', 'YOG01', 'PKL', 'SMG', 'SBY VS3KS'],
+                        usedBw: [41.55, 16.39, 16.18, 3.49, 0.01],
+                        peakBwLabels: ['SBY', 'PKL', 'YOG01', 'SMG', 'SBY VS3KS'],
+                        peakBw: [1840.20, 1520.00, 1280.50, 1100.20, 820.00]
+                    },
+                    usersCharts: {
+                        title1: 'Hourly Peak Users (Last 24 Hours)',
+                        title2: 'Online User Surabaya per Hari (per EPG)',
+                        labels1: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+                        data1: [12000, 8500, 15400, 32000, 45000, 48000, 65200, 51000],
+                        labels2: ['19-Oct', '20-Oct', '21-Oct', '22-Oct', '23-Oct', '24-Oct', '25-Oct'],
+                        datasets2: [
+                            { label: 'SBY_EPG08', data: [1100, 1500, 3200, 4100, 4500, 6200, 4300], backgroundColor: '#3b82f6' },
+                            { label: 'SBY_EPG09', data: [1000, 1450, 3100, 4000, 4300, 6100, 4200], backgroundColor: '#ef4444' },
+                            { label: 'SBY_EPG10', data: [1050, 1400, 3100, 4000, 4400, 6100, 4200], backgroundColor: '#eab308' },
+                            { label: 'SBY_EPG11', data: [1200, 1600, 3300, 4200, 4600, 6400, 4500], backgroundColor: '#22c55e' },
+                            { label: 'SBY_EPG12', data: [1300, 1700, 3500, 4500, 4900, 6800, 4800], backgroundColor: '#f97316' }
+                        ]
+                    }
                 }
-            } catch (error) {
-                console.error("Gagal mengambil data dari Google Sheets:", error);
-                alert("Gagal memuat data dari Google Sheets.");
-                return;
-            }
+            };
 
-            // --- 1. DARK MODE & UI ---
+            // --- DARK MODE TOGGLE ---
             const htmlElement = document.documentElement;
             const darkModeToggle = document.getElementById('darkModeToggle');
             const darkModeIcon = document.getElementById('darkModeIcon');
@@ -342,14 +796,19 @@
                 }
             });
 
+            // --- SIDEBAR TOGGLE ---
             const sidebar = document.getElementById('sidebar');
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const overlay = document.getElementById('sidebarOverlay');
-            function toggleSidebar() { sidebar.classList.toggle('-translate-x-full'); overlay.classList.toggle('hidden'); }
+
+            function toggleSidebar() {
+                sidebar.classList.toggle('-translate-x-full');
+                overlay.classList.toggle('hidden');
+            }
             mobileMenuBtn.addEventListener('click', toggleSidebar);
             overlay.addEventListener('click', toggleSidebar);
 
-            // --- 2. PETA LEAFLET ---
+            // --- REGIONAL MAP ---
             let mapInitialized = false;
             let jatimMap;
             let mapMarkers = [];
@@ -358,12 +817,15 @@
                 if (!mapInitialized) {
                     jatimMap = L.map('eastJavaMap').setView([-7.53606, 112.2384], 8);
                     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-                        maxZoom: 18, attribution: 'Tiles &copy; Esri'
+                        maxZoom: 18,
+                        attribution: 'Tiles &copy; Esri'
                     }).addTo(jatimMap);
                     mapInitialized = true;
                 }
+
                 mapMarkers.forEach(m => jatimMap.removeLayer(m));
                 mapMarkers = [];
+
                 locations.forEach(loc => {
                     const marker = L.marker(loc.coords).addTo(jatimMap);
                     marker.bindPopup(`
@@ -377,19 +839,410 @@
                 });
             }
 
-            // --- 3. EXPORT EXCEL & PDF ---
+            // --- EXPORT DROPDOWN ---
             const exportDropdownBtn = document.getElementById('exportDropdownBtn');
             const exportDropdownMenu = document.getElementById('exportDropdownMenu');
-            exportDropdownBtn.addEventListener('click', function(e) { e.stopPropagation(); exportDropdownMenu.classList.toggle('hidden'); });
-            document.addEventListener('click', function(e) { if (!exportDropdownBtn.contains(e.target) && !exportDropdownMenu.contains(e.target)) { exportDropdownMenu.classList.add('hidden'); } });
 
+            exportDropdownBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                exportDropdownMenu.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!exportDropdownBtn.contains(e.target) && !exportDropdownMenu.contains(e.target)) {
+                    exportDropdownMenu.classList.add('hidden');
+                }
+            });
+
+            // CHART INSTANCES
+            let epgLastWeekChart, sbyStackedChart;
+            let occupancyChartInstance, cpuChartInstance, memoryChartInstance;
+            let cdnPctChartInstance, cdnTbChartInstance, cdnBwChartInstance, cdnPeakChartInstance;
+
+            const telkomselRed = '#e1002b';
+            const telkomselBlue = '#2563eb';
+
+            function renderAllDashboards(rangeKey) {
+                const data = globalFilterData[rangeKey];
+
+                // Executive Summary Update
+                document.getElementById('stat-total-online').innerText = data.exec.totalOnline;
+                document.getElementById('stat-sby-online').innerText = data.exec.sbyOnline;
+                document.getElementById('stat-peak-bw').innerHTML = data.exec.peakBw;
+                document.getElementById('stat-high-storage').innerText = data.exec.highStorage;
+
+                document.getElementById('list-top-occupancy').innerHTML = data.exec.topOccupancy.map(item => `
+                    <div class="flex justify-between items-center"><span class="text-gray-600 dark:text-gray-300">${item.name}</span><span class="font-bold text-gray-900 dark:text-white">${item.val}</span></div>
+                `).join('');
+
+                document.getElementById('list-top-cpu').innerHTML = data.exec.topCpu.map(item => `
+                    <div class="flex justify-between items-center"><span class="text-gray-600 dark:text-gray-300">${item.name}</span><span class="font-bold text-gray-900 dark:text-white">${item.val}</span></div>
+                `).join('');
+
+                document.getElementById('list-top-memory').innerHTML = data.exec.topMemory.map(item => `
+                    <div class="flex justify-between items-center"><span class="text-gray-600 dark:text-gray-300">${item.name}</span><span class="font-bold text-red-500">${item.val}</span></div>
+                `).join('');
+
+                document.getElementById('list-top-epg-subs').innerHTML = data.exec.topEpgSubs.map(item => `
+                    <li>
+                        <div class="flex justify-between text-sm mb-1"><span class="font-medium text-gray-700 dark:text-gray-300">${item.name}</span><span class="font-bold text-blue-600 dark:text-blue-400">${item.val}</span></div>
+                        <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5"><div class="bg-blue-500 h-1.5 rounded-full" style="width: ${item.width}"></div></div>
+                    </li>
+                `).join('');
+
+                document.getElementById('list-top-growth').innerHTML = data.exec.topGrowth.map(item => `
+                    <li class="flex justify-between items-center text-sm"><span class="font-medium text-gray-700 dark:text-gray-300">${item.name}</span><span class="px-2 py-1 bg-green-100 dark:bg-green-950/50 text-green-700 dark:text-green-400 rounded text-xs font-bold">${item.val}</span></li>
+                `).join('');
+
+                document.getElementById('list-top-decline').innerHTML = data.exec.topDecline.map(item => `
+                    <li class="flex justify-between items-center text-sm"><span class="font-medium text-gray-700 dark:text-gray-300">${item.name}</span><span class="px-2 py-1 bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-400 rounded text-xs font-bold">${item.val}</span></li>
+                `).join('');
+
+                // Subscriber View Update
+                document.getElementById('card-dynamic-users').innerText = data.subscribers.totalUsers;
+                document.getElementById('card-sby-online-sub').innerText = data.subscribers.sbySub;
+
+                const subTableBody = document.getElementById('subscriber-table-body');
+                if (data.subscribers.tableRows && data.subscribers.tableRows.length > 0) {
+                    subTableBody.innerHTML = data.subscribers.tableRows.map(row => `
+                        <tr>
+                            <td class="px-5 py-3 font-medium text-gray-800 dark:text-gray-200">${row.month}</td>
+                            <td class="px-5 py-3 text-right">${Number(row.registered_user).toLocaleString()}</td>
+                            <td class="px-5 py-3 text-right">${Number(row.active_user).toLocaleString()}</td>
+                        </tr>
+                    `).join('');
+                }
+
+                if (mapInitialized) {
+                    initMap(data.mapLocations);
+                    jatimMap.invalidateSize();
+                }
+
+                document.getElementById('chart1-title').innerText = data.usersCharts.title1;
+                document.getElementById('chart2-title').innerText = data.usersCharts.title2;
+
+                // EPG Last Week & Stacked Chart Update
+                const ctx1 = document.getElementById('epgLastWeekChart').getContext('2d');
+                const ctx2 = document.getElementById('sbyStackedChart').getContext('2d');
+
+                if (epgLastWeekChart) epgLastWeekChart.destroy();
+                if (sbyStackedChart) sbyStackedChart.destroy();
+
+                epgLastWeekChart = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: data.usersCharts.labels1,
+                        datasets: [{ label: 'Online Users', data: data.usersCharts.data1, backgroundColor: '#e1002b' }]
+                    },
+                    options: { indexAxis: rangeKey === '7d' ? 'y' : 'x', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+
+                sbyStackedChart = new Chart(ctx2, {
+                    type: 'bar',
+                    data: { labels: data.usersCharts.labels2, datasets: data.usersCharts.datasets2 },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, boxWidth: 8 } } }, scales: { x: { stacked: true }, y: { stacked: true } } }
+                });
+
+                // EPG STATUS CAPACITY
+                if (occupancyChartInstance) occupancyChartInstance.destroy();
+                if (cpuChartInstance) cpuChartInstance.destroy();
+                if (memoryChartInstance) memoryChartInstance.destroy();
+
+                occupancyChartInstance = new Chart(document.getElementById('occupancyChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.epgCharts.labels,
+                        datasets: [{
+                            label: 'Occupancy Rate (%)',
+                            data: data.epgCharts.occupancy,
+                            backgroundColor: '#2563eb',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, max: 60, title: { display: true, text: 'Occupancy (%)' } },
+                            x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 } }
+                        }
+                    }
+                });
+
+                cpuChartInstance = new Chart(document.getElementById('cpuChart').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: data.epgCharts.labels,
+                        datasets: [{
+                            label: 'CPU Usage (%)',
+                            data: data.epgCharts.cpu,
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.15)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3,
+                            pointBackgroundColor: '#ef4444',
+                            pointRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, max: 40, title: { display: true, text: 'Average CPU (%)' } },
+                            x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 } }
+                        }
+                    }
+                });
+
+                memoryChartInstance = new Chart(document.getElementById('memoryChart').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: data.epgCharts.labels,
+                        datasets: [{
+                            label: 'Memory Usage (%)',
+                            data: data.epgCharts.memory,
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.15)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3,
+                            pointBackgroundColor: '#f59e0b',
+                            pointRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, max: 100, title: { display: true, text: 'Memory (%)' } },
+                            x: { ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 } }
+                        }
+                    }
+                });
+
+                // CDN PERFORMANCE
+                document.getElementById('cdn-card-peak').innerText = data.cdnCharts.peakPeakCard;
+                document.getElementById('cdn-card-storage').innerText = data.cdnCharts.storageCard;
+
+                if (cdnPctChartInstance) cdnPctChartInstance.destroy();
+                if (cdnTbChartInstance) cdnTbChartInstance.destroy();
+                if (cdnBwChartInstance) cdnBwChartInstance.destroy();
+                if (cdnPeakChartInstance) cdnPeakChartInstance.destroy();
+
+                const cdnHorizontalOptions = {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { beginAtZero: true, grid: { display: true } },
+                        y: { grid: { display: false } }
+                    }
+                };
+
+                cdnPctChartInstance = new Chart(document.getElementById('cdnStoragePctChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.cdnCharts.storagePctLabels,
+                        datasets: [{ label: 'Storage Usage (%)', data: data.cdnCharts.storagePct, backgroundColor: telkomselBlue, borderRadius: 3 }]
+                    },
+                    options: cdnHorizontalOptions
+                });
+
+                cdnTbChartInstance = new Chart(document.getElementById('cdnStorageTbChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.cdnCharts.storageTbLabels,
+                        datasets: [{ label: 'Used Storage (TB)', data: data.cdnCharts.storageTb, backgroundColor: telkomselBlue, borderRadius: 3 }]
+                    },
+                    options: cdnHorizontalOptions
+                });
+
+                cdnBwChartInstance = new Chart(document.getElementById('cdnUsedBwChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.cdnCharts.usedBwLabels,
+                        datasets: [{ label: 'Bandwidth Usage (%)', data: data.cdnCharts.usedBw, backgroundColor: telkomselRed, borderRadius: 3 }]
+                    },
+                    options: cdnHorizontalOptions
+                });
+
+                cdnPeakChartInstance = new Chart(document.getElementById('cdnPeakBwChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.cdnCharts.peakBwLabels,
+                        datasets: [{ label: 'Peak Bandwidth (Mbps)', data: data.cdnCharts.peakBw, backgroundColor: telkomselRed, borderRadius: 3 }]
+                    },
+                    options: cdnHorizontalOptions
+                });
+            }
+
+            renderAllDashboards('7d');
+
+            // --- TIME FILTER BUTTONS ---
+            const timeFilterButtons = document.querySelectorAll('.time-filter-btn');
+            const timeRangeIndicator = document.getElementById('timeRangeIndicator');
+            const customDateContainer = document.getElementById('customDateContainer');
+            const startDateInput = document.getElementById('startDate');
+            const endDateInput = document.getElementById('endDate');
+            const applyCustomDateBtn = document.getElementById('applyCustomDate');
+
+            timeFilterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    timeFilterButtons.forEach(b => {
+                        b.classList.remove('bg-white', 'dark:bg-gray-800', 'text-primary', 'shadow-sm');
+                        b.classList.add('text-gray-600', 'dark:text-gray-300');
+                    });
+                    this.classList.add('bg-white', 'dark:bg-gray-800', 'text-primary', 'shadow-sm');
+                    this.classList.remove('text-gray-600', 'dark:text-gray-300');
+
+                    const rangeKey = this.getAttribute('data-range');
+
+                    if (rangeKey === 'custom') {
+                        customDateContainer.classList.remove('hidden');
+                        customDateContainer.classList.add('flex');
+                        if (timeRangeIndicator) timeRangeIndicator.innerText = `Custom Range`;
+                    } else {
+                        customDateContainer.classList.add('hidden');
+                        customDateContainer.classList.remove('flex');
+                        if (timeRangeIndicator) {
+                            if (rangeKey === '24h') {
+                                timeRangeIndicator.innerText = `Last 24 Hours`;
+                                renderAllDashboards('24h');
+                            }
+                            if (rangeKey === '7d') {
+                                timeRangeIndicator.innerText = ``;
+                                renderAllDashboards('7d');
+                            }
+                        }
+                    }
+                });
+            });
+
+            applyCustomDateBtn.addEventListener('click', function() {
+                const start = startDateInput.value;
+                const end = endDateInput.value;
+                if (!start || !end) {
+                    alert('Please select both Start Date and End Date first.');
+                    return;
+                }
+                if (timeRangeIndicator) {
+                    timeRangeIndicator.innerText = `${start} to ${end}`;
+                }
+                renderAllDashboards('7d'); 
+            });
+
+            // --- NAVIGATION CONTROLLER ---
+            const navItems = document.querySelectorAll('.nav-item');
+            const viewSections = document.querySelectorAll('.view-section');
+            const pageTitle = document.getElementById('page-title');
+
+            const titleMap = {
+                'view-summary': 'Executive Summary',
+                'view-users': 'Analysis Subscriber',
+                'view-map': 'East Java Regional Map',
+                'view-epg': 'EPG Status & Capacity',
+                'view-cdn': 'CDN Performance'
+            };
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navItems.forEach(nav => {
+                        nav.classList.remove('bg-primary/15', 'text-primary');
+                        nav.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+                    });
+                    this.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+                    this.classList.add('bg-primary/15', 'text-primary');
+
+                    viewSections.forEach(section => {
+                        section.classList.add('hidden');
+                        section.classList.remove('block');
+                    });
+
+                    const targetId = this.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.remove('hidden');
+                        targetSection.classList.add('block');
+                        if (pageTitle && titleMap[targetId]) pageTitle.innerText = titleMap[targetId];
+
+                        if (targetId === 'view-map') {
+                            setTimeout(() => {
+                                const activeRange = document.querySelector('.time-filter-btn.bg-white, .time-filter-btn.dark\\:bg-gray-800')?.getAttribute('data-range') || '7d';
+                                initMap(globalFilterData[activeRange].mapLocations);
+                                if(jatimMap) jatimMap.invalidateSize();
+                            }, 100);
+                        }
+                    }
+
+                    if(window.innerWidth < 768 && !sidebar.classList.contains('-translate-x-full')) {
+                        toggleSidebar();
+                    }
+                });
+            });
+
+            // --- ALERT TOAST SYSTEM ---
+            const alertToastContainer = document.getElementById('alertToastContainer');
+            const alertBellBtn = document.getElementById('alertBellBtn');
+            const bellBadge = document.getElementById('bellBadge');
+            const activeAlerts = [
+                { id: 1, title: 'Highest Storage Warning', message: 'Semarang02 storage usage reached 72.75% limit.', type: 'critical', time: 'Just now' },
+                { id: 2, title: 'Peak Bandwidth Notice', message: 'Surabaya_3KH reached 2,667.55 Mbps peak bandwidth.', type: 'warning', time: '2m ago' }
+            ];
+
+            function renderAlertToasts() {
+                if(!alertToastContainer) return;
+                alertToastContainer.innerHTML = '';
+                activeAlerts.forEach(alert => {
+                    const toast = document.createElement('div');
+                    toast.className = `pointer-events-auto bg-white dark:bg-gray-900 border-l-4 ${alert.type === 'critical' ? 'border-red-500' : 'border-amber-500'} p-4 rounded-xl shadow-2xl flex items-start space-x-3 animate-slide-in`;
+                    toast.innerHTML = `
+                        <div class="text-${alert.type === 'critical' ? 'red' : 'amber'}-500 text-lg mt-0.5"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="flex-1">
+                            <h4 class="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wide">${alert.title}</h4>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 mt-0.5">${alert.message}</p>
+                            <span class="text-[10px] text-gray-400 mt-1 block">${alert.time}</span>
+                        </div>
+                        <button class="dismiss-alert text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xs" data-id="${alert.id}"><i class="fas fa-times"></i></button>
+                    `;
+                    alertToastContainer.appendChild(toast);
+                });
+
+                document.querySelectorAll('.dismiss-alert').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        const index = activeAlerts.findIndex(a => a.id === id);
+                        if(index > -1) {
+                            activeAlerts.splice(index, 1);
+                            renderAlertToasts();
+                            if(activeAlerts.length === 0 && bellBadge) bellBadge.classList.add('hidden');
+                        }
+                    });
+                });
+            }
+            renderAlertToasts();
+
+            alertBellBtn.addEventListener('click', function() {
+                alertToastContainer.classList.toggle('hidden');
+                renderAlertToasts();
+            });
+
+            // --- EXPORT PDF & EXCEL ---
             document.getElementById('btnExportPdf').addEventListener('click', function() {
                 const element = document.getElementById('print-area');
                 const title = document.getElementById('page-title').innerText.replace(/\s+/g, '_');
                 element.classList.add('exporting');
-                html2pdf().set({ margin: 0.3, filename: `Report_${title}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' } }).from(element).save().then(() => { element.classList.remove('exporting'); });
+                html2pdf().set({ margin: 0.3, filename: `Report_${title}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' } }).from(element).save().then(() => {
+                    element.classList.remove('exporting');
+                });
                 exportDropdownMenu.classList.add('hidden');
             });
+
             document.getElementById('btnExportExcel').addEventListener('click', function() {
                 const activeView = document.querySelector('.view-section:not(.hidden)');
                 const tables = activeView.querySelectorAll('table');
@@ -398,147 +1251,6 @@
                 tables.forEach((t, i) => XLSX.utils.book_append_sheet(wb, XLSX.utils.table_to_sheet(t), `Table_${i+1}`));
                 XLSX.writeFile(wb, `Report_Data_${document.getElementById('page-title').innerText}.xlsx`);
                 exportDropdownMenu.classList.add('hidden');
-            });
-
-            // --- 4. RENDER DATA & CHART UTAMA ---
-            let epgLastWeekChart, sbyStackedChart;
-            let occupancyChartInstance, cpuChartInstance, memoryChartInstance;
-            let cdnPctChartInstance, cdnTbChartInstance, cdnBwChartInstance, cdnPeakChartInstance;
-            const telkomselRed = '#e1002b'; const telkomselBlue = '#00A3E0';
-
-            function renderAllDashboards(rangeKey) {
-                const data = globalFilterData[rangeKey];
-                
-                // Isi Kartu
-                document.getElementById('stat-total-online').innerText = data..totalOnline;
-                document.getElementById('stat-sby-online').innerText = data..sbyOnline;
-                document.getElementById('stat-peak-bw').innerHTML = data..peakBw;
-                document.getElementById('stat-high-storage').innerText = data..highStorage;
-
-                // Isi List Top 5
-                document.getElementById('list-top-occupancy').innerHTML = data..topOccupancy.map(item => `
-                    <div class="flex justify-between items-center"><span class="text-gray-600 dark:text-gray-300">${item.name}</span><span class="font-bold text-gray-900 dark:text-white">${item.val}</span></div>
-                `).join('');
-                document.getElementById('list-top-cpu').innerHTML = data..topCpu.map(item => `
-                    <div class="flex justify-between items-center"><span class="text-gray-600 dark:text-gray-300">${item.name}</span><span class="font-bold text-gray-900 dark:text-white">${item.val}</span></div>
-                `).join('');
-                document.getElementById('list-top-memory').innerHTML = data..topMemory.map(item => `
-                    <div class="flex justify-between items-center"><span class="text-gray-600 dark:text-gray-300">${item.name}</span><span class="font-bold text-red-500">${item.val}</span></div>
-                `).join('');
-                document.getElementById('list-top-epg-subs').innerHTML = data..topEpgSubs.map(item => `
-                    <li>
-                        <div class="flex justify-between text-sm mb-1"><span class="font-medium text-gray-700 dark:text-gray-300">${item.name}</span><span class="font-bold text-blue-600 dark:text-blue-400">${item.val}</span></div>
-                        <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-1.5"><div class="bg-blue-500 h-1.5 rounded-full" style="width: ${item.width}"></div></div>
-                    </li>
-                `).join('');
-                document.getElementById('list-top-growth').innerHTML = data..topGrowth.map(item => `
-                    <li class="flex justify-between items-center text-sm"><span class="font-medium text-gray-700 dark:text-gray-300">${item.name}</span><span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-bold">${item.val}</span></li>
-                `).join('');
-                document.getElementById('list-top-decline').innerHTML = data..topDecline.map(item => `
-                    <li class="flex justify-between items-center text-sm"><span class="font-medium text-gray-700 dark:text-gray-300">${item.name}</span><span class="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-bold">${item.val}</span></li>
-                `).join('');
-
-                // Tabel Subscriber
-                const subTableBody = document.getElementById('subscriber-table-body');
-                if (data.subscribers.tableRows && data.subscribers.tableRows.length > 0) {
-                    subTableBody.innerHTML = data.subscribers.tableRows.map(row => `
-                        <tr>
-                            <td class="px-5 py-3 font-medium text-gray-800 dark:text-gray-200">${row.month}</td>
-                            <td class="px-5 py-3 text-right">${Number(row.registered_user).toLocaleString('id-ID')}</td>
-                            <td class="px-5 py-3 text-right">${Number(row.active_user).toLocaleString('id-ID')}</td>
-                        </tr>
-                    `).join('');
-                }
-
-                // Render Maps
-                if (mapInitialized) { initMap(data.mapLocations); jatimMap.invalidateSize(); }
-
-                // Grafik Users
-                document.getElementById('chart1-title').innerText = data.usersCharts.title1;
-                document.getElementById('chart2-title').innerText = data.usersCharts.title2;
-                if (epgLastWeekChart) epgLastWeekChart.destroy();
-                if (sbyStackedChart) sbyStackedChart.destroy();
-
-                epgLastWeekChart = new Chart(document.getElementById('epgLastWeekChart').getContext('2d'), {
-                    type: 'bar',
-                    data: { labels: data.usersCharts.labels1, datasets: [{ label: 'Online Users', data: data.usersCharts.data1, backgroundColor: '#e1002b' }] },
-                    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-                });
-                sbyStackedChart = new Chart(document.getElementById('sbyStackedChart').getContext('2d'), {
-                    type: 'bar',
-                    data: { labels: data.usersCharts.labels2, datasets: data.usersCharts.datasets2 },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-                });
-
-                // Grafik EPG
-                if (occupancyChartInstance) occupancyChartInstance.destroy();
-                if (cpuChartInstance) cpuChartInstance.destroy();
-                if (memoryChartInstance) memoryChartInstance.destroy();
-                const epgLabelsLive = data.usersCharts.labels1;
-
-                occupancyChartInstance = new Chart(document.getElementById('occupancyChart').getContext('2d'), {
-                    type: 'bar', data: { labels: epgLabelsLive, datasets: [{ label: 'Occupancy (%)', data: data.epgCharts.occupancy, backgroundColor: telkomselBlue }] },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-                cpuChartInstance = new Chart(document.getElementById('cpuChart').getContext('2d'), {
-                    type: 'line', data: { labels: epgLabelsLive, datasets: [{ label: 'CPU Usage (%)', data: data.epgCharts.cpu, borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.1)', fill: true }] },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-                memoryChartInstance = new Chart(document.getElementById('memoryChart').getContext('2d'), {
-                    type: 'line', data: { labels: epgLabelsLive, datasets: [{ label: 'Memory Usage (%)', data: data.epgCharts.memory, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', fill: true }] },
-                    options: { responsive: true, maintainAspectRatio: false }
-                });
-
-                // Grafik CDN
-                if (cdnPctChartInstance) cdnPctChartInstance.destroy();
-                if (cdnTbChartInstance) cdnTbChartInstance.destroy();
-                if (cdnBwChartInstance) cdnBwChartInstance.destroy();
-                if (cdnPeakChartInstance) cdnPeakChartInstance.destroy();
-                const chartOptionsBase = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
-
-                cdnPctChartInstance = new Chart(document.getElementById('cdnStoragePctChart').getContext('2d'), { type: 'bar', data: { labels: ['SMG02', 'SBY04', 'PKL01', 'YOG01', 'SBY01'], datasets: [{ data: data.cdnCharts.storagePct, backgroundColor: telkomselRed }] }, options: chartOptionsBase });
-                cdnTbChartInstance = new Chart(document.getElementById('cdnStorageTbChart').getContext('2d'), { type: 'bar', data: { labels: ['SBY04', 'PKL01', 'YOG01', 'SBY01', 'SMG02'], datasets: [{ data: data.cdnCharts.storageTb, backgroundColor: telkomselRed }] }, options: chartOptionsBase });
-                cdnBwChartInstance = new Chart(document.getElementById('cdnUsedBwChart').getContext('2d'), { type: 'bar', data: { labels: ['Surabaya', 'Semarang', 'Yogyakarta', 'Pekalongan', 'Denpasar'], datasets: [{ data: data.cdnCharts.usedBw, backgroundColor: telkomselBlue }] }, options: chartOptionsBase });
-                cdnPeakChartInstance = new Chart(document.getElementById('cdnPeakBwChart').getContext('2d'), { type: 'bar', data: { labels: ['Surabaya', 'Semarang', 'Yogyakarta', 'Pekalongan', 'Denpasar'], datasets: [{ data: data.cdnCharts.peakBw, backgroundColor: telkomselBlue }] }, options: chartOptionsBase });
-            }
-
-            renderAllDashboards('7d');
-
-            // --- 5. LOGIKA TAB / NAVIGASI VIEW ---
-            const navItems = document.querySelectorAll('.nav-item');
-            const viewSections = document.querySelectorAll('.view-section');
-            const pageTitle = document.getElementById('page-title');
-            const titleMap = { 'view-summary': 'utive Summary', 'view-users': 'Analysis Subscriber', 'view-map': 'East Java Regional Map', 'view-epg': 'EPG Status & Capacity', 'view-cdn': 'CDN Performance' };
-
-            navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    navItems.forEach(nav => { nav.classList.remove('bg-primary/15', 'text-primary'); nav.classList.add('text-gray-600', 'dark:text-gray-300'); });
-                    this.classList.remove('text-gray-600', 'dark:text-gray-300'); this.classList.add('bg-primary/15', 'text-primary');
-
-                    viewSections.forEach(section => { section.classList.add('hidden'); section.classList.remove('block'); });
-                    const targetId = this.getAttribute('data-target');
-                    const targetSection = document.getElementById(targetId);
-                    if (targetSection) {
-                        targetSection.classList.remove('hidden'); targetSection.classList.add('block');
-                        if (pageTitle && titleMap[targetId]) pageTitle.innerText = titleMap[targetId];
-                        if (targetId === 'view-map') { setTimeout(() => { initMap(globalFilterData['7d'].mapLocations); if(jatimMap) jatimMap.invalidateSize(); }, 100); }
-                    }
-                    if(window.innerWidth < 768 && !sidebar.classList.contains('-translate-x-full')) { toggleSidebar(); }
-                });
-            });
-
-            // Filter Waktu 
-            document.querySelectorAll('.time-filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.time-filter-btn').forEach(b => { b.classList.remove('bg-white', 'text-primary', 'shadow-sm'); b.classList.add('text-gray-600'); });
-                    this.classList.add('bg-white', 'text-primary', 'shadow-sm'); this.classList.remove('text-gray-600');
-                    const rangeKey = this.getAttribute('data-range');
-                    if (rangeKey === '24h' || rangeKey === '7d') {
-                        document.getElementById('timeRangeIndicator').innerText = `Showing data for: Live Update from Sheets`;
-                        renderAllDashboards(rangeKey);
-                    }
-                });
             });
         });
     </script>
